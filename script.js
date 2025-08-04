@@ -1,68 +1,59 @@
+let humanScore = 0;
+let computerScore = 0;
+let ties = 0;
+
+const results = document.querySelector(".results");
+const btns = document.querySelectorAll("button");
+btns.forEach(btn => {
+    btn.addEventListener("click", function () {
+        const choice = btn.id;
+        playRound(choice, getComputerChoice());
+        
+        const runningResults = `Your current score = ${humanScore}\nComputer's current score = ${computerScore}\nTies = ${ties}`;
+        results.innerText = runningResults;
+        
+        let message = "";
+        if (humanScore === 5) {
+            message = alert("You win!!");
+            humanScore = 0;
+            computerScore = 0;
+            ties = 0;
+        } else if (computerScore === 5) {
+            message = alert("Computer wins!!");
+            humanScore = 0;
+            computerScore = 0;
+            ties = 0;
+        }
+        return message;
+    });
+});
+
+function playRound(userChoice, computerChoice) {
+    if (
+        computerChoice == 'rock' && userChoice == 'paper' ||
+        computerChoice == 'paper' && userChoice == 'scissors' ||
+        computerChoice == 'scissors' && userChoice == 'rock'
+    ) {
+        humanScore++;
+    }
+    else if (
+        computerChoice == 'paper' && userChoice == 'rock' ||
+        computerChoice == 'scissors' && userChoice == 'paper' ||
+        computerChoice == 'rock' && userChoice == 'scissors'
+    ) {
+        computerScore++;
+    } else if (computerChoice == userChoice) {
+        ties++;
+    }
+}
+
 function getComputerChoice() {
-    randomNumber = Math.round((((Math.random() * 20)) + 1) / 10);
+    randomNumber = Math.round(Math.random() * 2);
 
     if (randomNumber === 0)
-        return 'Rock';
+        return 'rock';
     else if (randomNumber == 1)
-        return 'Paper';
+        return 'paper';
     else if (randomNumber == 2)
-        return 'Scissors';
+        return 'scissors';
 }
-
-function getHumanChoice() {
-    input = prompt('Rock, paper, scissors? ');
-    return input;
-}
-
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    let ties = 0;
-
-    function playRound(humanChoice, computerChoice) {
-        let humanChoiceLower = humanChoice.toLowerCase();
-        let computerChoiceLower = computerChoice.toLowerCase();
-
-        if (computerChoiceLower == 'rock' && humanChoiceLower == 'paper') {
-            humanScore++;
-            console.log(`You win! ${humanChoiceLower} beats ${computerChoiceLower}`);
-        } else if (computerChoiceLower == 'paper' && humanChoiceLower == 'scissors') {
-            humanScore++;
-            console.log(`You win! ${humanChoiceLower} beats ${computerChoiceLower}`);
-        } else if (computerChoiceLower == 'scissors' && humanChoiceLower == 'rock') {
-            humanScore++;
-            console.log(`You win! ${humanChoiceLower} beats ${computerChoiceLower}`);
-        } else if (computerChoiceLower == 'paper' && humanChoiceLower == 'rock') {
-            computerScore++;
-            console.log(`You lose! ${computerChoiceLower} beats ${humanChoiceLower}`);
-        } else if (computerChoiceLower == 'scissors' && humanChoiceLower == 'paper') {
-            computerScore++;
-            console.log(`You lose! ${computerChoiceLower} beats ${humanChoiceLower}`);
-        } else if (computerChoiceLower == 'rock' && humanChoiceLower == 'scissors') {
-            computerScore++;
-            console.log(`You lose! ${computerChoiceLower} beats ${humanChoiceLower}`);
-        } else if (computerChoiceLower == humanChoiceLower) {
-            console.log(`A tie!`);
-            ties++;
-        }
-    }
-    
-    for (let i = 0; i <= 4; i++) {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    }
-
-    let message;
-
-    if (humanScore == computerScore) {
-        message = alert(`A tie!!\nYour score: ${humanScore}\nComputer score: ${computerScore}\nTies: ${ties}`);
-    } else if (humanScore > computerScore) {
-        message = alert(`You win!!\nYour score: ${humanScore}\nComputer score: ${computerScore}\nTies: ${ties}`);
-    } else {
-        message = alert(`You lose!!\nYour score: ${humanScore}\nComputer score: ${computerScore}\nTies: ${ties}`);
-    }
-    return message;
-}
-
-playGame();
