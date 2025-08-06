@@ -10,7 +10,11 @@
     gap: 35px;
 }
 
-.results {
+#results {
     margin-top: 10px;
     text-align: center;
+}
+
+#new-game {
+    margin-top: 10px;
 }

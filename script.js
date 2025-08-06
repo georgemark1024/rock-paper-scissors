@@ -2,7 +2,8 @@ let humanScore = 0;
 let computerScore = 0;
 let ties = 0;
 
-const results = document.querySelector(".results");
+const results = document.querySelector("#results");
+const newGame = document.querySelector("#new-game");
 const btns = document.querySelectorAll("button");
 btns.forEach(btn => {
     btn.addEventListener("click", function () {
@@ -14,17 +15,28 @@ btns.forEach(btn => {
         
         let message = "";
         if (humanScore === 5) {
-            message = alert("You win!!");
+            message = "You win!!";
             humanScore = 0;
             computerScore = 0;
             ties = 0;
         } else if (computerScore === 5) {
-            message = alert("Computer wins!!");
+            message = "Computer wins!!";
             humanScore = 0;
             computerScore = 0;
             ties = 0;
         }
-        return message;
+
+        if (message) {
+            alert(message);
+            newGameBtn = document.createElement("button");
+            newGameBtn.textContent = "Start a new game?";
+
+            newGameBtn.addEventListener("click", () => {
+                window.location.reload();
+            });
+
+            newGame.appendChild(newGameBtn);
+        }
     });
 });
 
